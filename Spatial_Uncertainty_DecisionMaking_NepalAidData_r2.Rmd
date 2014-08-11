@@ -1,0 +1,375 @@
+---
+output: word_document
+geometry: margin=1in
+fontsize: 11pt
+---
+```{r Initialization, include=FALSE}
+#Initialization code - includes Libraries, Functions, Data Load, Globals
+library(sp)
+library(rgdal)
+library(RColorBrewer)
+library(gridExtra)
+library(lattice)
+library(maps)
+library(maptools)
+library(rgeos)
+library(png)
+library(grid)
+library(Cairo)
+library(data.table)
+library(grid)
+library(gridExtra)
+library(splancs)
+
+#------------------------------
+#Globals & Settings
+#------------------------------
+wd = "C:\\Scratch"
+setwd(wd) 
+
+#Lat/Lon extents for maps (for easy reference)
+#(w,e)
+w_e = c(80,88.25)
+
+#(s,n)
+s_n=c(26,30.5)
+
+#Number of iterations for the Monte Carlo
+iterations = 1
+
+#Buffer (in km) for points that are attributed to regions - i.e., state parks.
+buffer = 50
+
+#Sector
+sector = "AGRICULTURE"
+
+#Precision Code Shape Files
+#For precision codes that require a shape file to join to,
+#Define the file paths to those shape files.
+
+PC1_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM4.shp"
+
+PC2_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM3.shp"
+
+PC3_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM2.shp"
+
+PC4_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM1.shp"
+
+
+#Maximum number of points to disburse projects across
+MaxPrj = 50
+
+#------------------------------
+#Define functions
+#------------------------------
+commaUS <- function(x) sprintf("$%s", formatC(x, format="fg",  
+big.mark = ","))
+
+theme.novpadding <-
+    list(layout.heights =
+         list(top.padding = -10,
+              main.key.padding = 0,
+              key.axis.padding = 0,
+              axis.xlab.padding = 0,
+              xlab.key.padding = 0,
+              key.sub.padding = 0,
+              bottom.padding = -10),
+         layout.widths =
+         list(left.padding = 0,
+              key.ylab.padding = 0,
+              ylab.axis.padding = 0,
+              axis.key.padding = 0,
+              right.padding = 0))
+#------------------------------
+#Load in Data
+#------------------------------
+GIS_csv = file.path("Nepal_AidData","NPL_geocoded_projectLocations.csv")
+path = normalizePath(GIS_csv)
+GIS_raw_data = read.csv(path,stringsAsFactors = FALSE)
+
+ADM_GIS = file.path("Nepal_AidData\\GIS","NP_ADM4.shp")
+ADM_path = normalizePath(ADM_GIS)
+ADM_shp = readShapePoly(ADM_path)
+
+AMP_data_csv = file.path("Nepal_AidData","NPL_AMP_projects.csv")
+AMP_path = normalizePath(AMP_data_csv)
+AMP_raw_data = read.csv(AMP_path,stringsAsFactors = FALSE)
+
+GIS_AMP_database = merge(GIS_raw_data, AMP_raw_data, by="project_ID")
+
+Geo_db <- GIS_AMP_database
+Geo_db <- Geo_db[rowSums(is.na(Geo_db[,c("latitude","longitude")]))==0,]
+
+Geo_db = SpatialPointsDataFrame(list(Geo_db$longitude,Geo_db$latitude), Geo_db)
+
+ADM_0 = gUnaryUnion(ADM_shp)
+
+PC1_geo = readShapePoly(PC1_shapefile)
+PC2_geo = readShapePoly(PC2_shapefile)
+PC3_geo = readShapePoly(PC3_shapefile)
+PC4_geo = readShapePoly(PC4_shapefile)
+
+```
+
+```{r Agriculture_Processing, include=FALSE}
+#Includes all code to produce agriculture-only dataset from the full dataset.
+agex <- AMP_raw_data[grep(sector, AMP_raw_data$amp_sector_name),]
+
+total_aid = sum(agex$total_c_to_2012)
+
+geo_agex <- Geo_db[grep(sector, Geo_db@data$amp_sector_name),]
+
+
+country_scale_aid_to_distribute = 0
+
+country_scale_undistributed_project_count = 0
+
+MC_realizations <-vector()
+for (MC_cnt in 1:iterations)
+  {
+  j_geo = data.frame()
+  #nrow(agex)
+  for (i in 1:15)
+    {
+    #For projects that are not geocoded, track them so we can distribute nation-wide later.
+    #Note in all cases we track both the # of projects (for "probability of 
+    #project occurence") as well as the total $ of aid.
+    #Further, we need to have a minimum # of projects to randomly distribute to at the country level.
+    
+    
+    #If not geocoded, add it into our big bucket of aid (but not if it is cancelled).
+    if(agex["geocoded"][[1]][i] == 0 && agex["status"][[1]][i] != "Cancelled")
+      {
+      country_scale_aid_to_distribute = country_scale_aid_to_distribute + agex["total_c_to_2012"][[1]][i]
+      country_scale_undistributed_project_count = country_scale_undistributed_project_count + 1
+      }
+    
+    
+    #For projects that are geocoded, 
+    else
+      {
+        #Count the total number of geocoded instances - i.e., if it's represented by multiple points.
+        sum(geo_agex@data["project_ID"] == agex["project_ID"][[1]][[i]])
+        
+        #Total funding for this project
+        total_funds_i = agex["total_c_to_2012"][[1]][i]
+        
+        #Iterate through each geocoded element that belongs in this project.
+        iter_geo_agex = geo_agex[which(geo_agex$project_ID == agex["project_ID"][[1]][[i]]),]
+        
+        #Initial loop to randomly allocate dollar amounts to rows in a project.
+        proj_dollar_rnd = vector()
+        proj_dollar_row = vector()
+        tot_rnd = 0
+        for(k in 1:nrow(iter_geo_agex))
+          {
+          proj_dollar_rnd[k] = runif(1,0,10)
+          tot_rnd = tot_rnd + proj_dollar_rnd[k]
+          }
+        
+        for(k in 1:nrow(iter_geo_agex))
+          {
+          proj_dollar_row[k] = (proj_dollar_rnd[k]/tot_rnd) * total_funds_i
+          }
+        
+        for (k in 1:nrow(iter_geo_agex))
+          {
+          #Precision code for this project location.
+          PC_k = iter_geo_agex["precision_code"][[1]][k]
+          
+          #If the precision code is 1, we aggregate to GADM-4
+          #This is done in all cases - even if we "know more precise information"
+          #As we do not have spatial data on the location of more precise points - 
+          #i.e., we don't know urban extents.          
+          
+          if(PC_k == 1)
+            {
+            #Need to turn this into a defined function soon
+            PC1_Overlay = as.character(over(iter_geo_agex[k,],PC1_geo)$V_ID)
+            PC1_poly = PC1_geo[which(PC1_geo$V_ID == PC1_Overlay),]
+            #Polymap
+            
+            #Generate random points
+            RndPrjCount = sample(2:MaxPrj,1)
+            PC1_csr_Poly = slot(slot(slot(PC1_poly,"polygons")[[1]],"Polygons")[[1]],"coords")
+            PC1_rnd_Points = csr(PC1_csr_Poly,RndPrjCount)
+            
+            row_dollars = proj_dollar_rnd[k]
+            
+            row_rnd_tot = 0
+            row_dollar_rnd = vector()
+            for(l in 1:nrow(PC1_rnd_Points))
+              {
+              row_dollar_rnd[l] = runif(1,0,10)
+              row_rnd_tot = row_rnd_tot + row_dollar_rnd[l]
+              }
+            
+            poly_return = cbind(PC1_rnd_Points,0)
+            for(l in 1:nrow(PC1_rnd_Points))
+              {
+              poly_return[l,][3] = row_dollars * (row_dollar_rnd[l] /  row_rnd_tot)
+              }
+            
+            
+            
+            j_geo = rbind(j_geo,poly_return)
+            }
+          
+          if(PC_k == 2)
+            {
+            #---------Here 7/28
+            }
+          
+          #LEFT OFF HERE - WE NOW ENTER ALL THE PRECISION CODE 1s INTO j_geo
+          #NEED TO HANDLE RANDOM DISTRIBUTION OF OTHER CODES NEXT
+          #THEN MONEY ALLOCATIONS (TWO ALLOCATIOSN REALLY - ONE IS JUST A COUNT)
+          
+          }
+     
+        
+        
+        #If it's precision code 1, it's accurately represented as a point 
+        #and can be safely skipped this step
+        #Otherwise, we need to play the monte-carlo game.
+        
+      }
+    
+  
+  }
+  MC_realizations[MC_cnt,] = j_geo
+}
+
+
+
+#agex <- AMP_raw_data[which(grep("AGRICULTURE", AMP_raw_data$amp_sector_name)>0),]
+
+#geo_agex <- Geo_db[which(Geo_db@data$amp_sector_name == "AGRICULTURE" & Geo_db@data$status != "Completed"),]
+```
+
+```{r MonteCarlo_Procedure, include=FALSE}
+#For each point, we assess the precision code, join to the appropriate spatial object, create random points to represent where it could be located (N times, defined in the iteration count), and then join these back together to create random realizations of where aid could be allocated.  Final step aggregates these to a raster surface.
+
+
+
+```
+
+STATUS: Draft - 0.1
+GOAL: Academic Publication
+TARGET JOURNAL: Climate Risk Management (via Agriculture angle)
+AIDDATA BENEFIT: Method for quantifying aid at relevant scales of analysis; quantify uncertainty associated with our precision codes; example of Decision Support capabilities using our data; Value of Information (what our information is worth in terms of reducing uncertainty; what collecting more would net).
+CO-AUTHOR OPPORTUNITY: GIS Methods piece; outreach to Data team.  Opportunities include writing portions of literature review, writing code to operate in other countries, effeciency gains in code for operational use, extending to new topical areas.
+
+
+The Value of Spatial Information for Decision Support Systems : International Agricultural Aid in Nepal
+========================================================
+Daniel Miller Runfola, Albert Decatur, Doug Nicholson, Scott Stewart
+
+Abstract
+-----------------------------
+Spatial decision support systems (SDSS) provide decision makers with the capability to transparently identify statistically optimal strategies for the allocation of limited resources.  Many organizations have begun mapping current resource allocations in order to take advantage of these systems.  Here, we build on previously developed, Monte-carlo approaches to quantifying spatial uncertainty to illustrate the value of this information in the context of multi-scalar precisional uncertainty.  A case study using a simplified agricultural SDSS and spatially-explicit information on interational aid for agriculture in Nepal is presented.  Findings suggest that...
+
+Key Words
+-----------------------------
+Uncertainty, Decision Support, International Aid, Development Fianance
+
+
+1.0 Introduction
+-----------------------------
+**1.1 Research Objective**
+**1.2 Definitions**
+**1.3 Literature Review**
+[Forthcoming]
+
+
+2.0 Data & Methods
+-----------------------------
+**2.1 Data**
+Two data sources for Nepal are used in this analysis: georeferenced information on international aid projects for agricultural improvement {AidData; Tierney et al. 2011} and aggregate yield ratio information (a ratio of actual production compared to potential agro-climatic production) for rice {IIASA 2012}. The AidData information contains records for `r nrow(agex)` agricultural projects that operate in Nepal, of which `r nrow(agex[agex$geocoded == 1,])` have location information in `r nrow(geo_agex@data)` identified locations. 
+
+
+```{r figure1, echo=FALSE}
+par(mar=c(0,0,0,0),mfrow=c(1,1), pty="s")
+#spplot(geo_agex, c("precision_code"), draw=T, cuts=1, axes=TRUE, scales=list(draw=TRUE), auto.key=FALSE,legendEntries=c("Agricultural project location"),  xlab=expression("Longitude"^o), ylab=expression("Latitude"^o), col.regions=c("Black"), cex=0.3, sp.layout=list("sp.polygons",ADM_0), par.settings=theme.novpadding)
+
+spplot(geo_agex,c("precision_code"),cuts=1,col.regions=c("black"),legendEntries=c("Agricultural Aid Project"),cex=0.5, xlab=expression("Longitude"^o), ylab=expression("Latitude"^o), sp.layout=list("sp.polygons",ADM_0),axes=TRUE, scales=list(draw=TRUE), xlim=w_e, ylim=s_n)
+
+```
+```
+Figure 1. Location of Agricultural Projects in Nepal.
+```
+
+
+
+
+
+**2.2 Methods**
+**2.2.1 Methods Overview**
+
+To assess the value of spatial information, three models are produced:
+(A) A model which optimizes based on no spatial information (uniform allocation across all administrative units);
+(B) A model which optimizes based on only spatial information on yield ratio information (no information on where existing agricultural aid projects are); and
+(C) A model with spatial - but uncertain - information on the location of current agricultural aid.
+
+The result of each optimization is compared to the simplified "ideal" map of aid allocation, in which aid is allocated proportionally to where agricultural gains are biophyiscally possible.^[While an illustrative example, this approach could easily be complicated in practice by further including information on - for example - existing infrastructure (i.e., roads), population, crime, or any other number of spatial data layers that may be relevant for agricultural project allocation.]  This comparison is done both spatially - i.e., how different optimization strategies differ from optimal across different administrative units - as well as in terms of total quantity.  A few simple assumptions are made to facilitate this comparison.  First, we assume that Nepal is doubling the total amount of agricultural aid in the country - from 552 million to 1.14 billion dollars.  This gives past and future decisions equal weight.  Second, we assume that existing projects cannot be re-allocated - that is, decision makers cannot remove funding from an area, only allocate new funding.  Third, we assume that one dollar of agricultural aid would have equal impact in all administrative units, and that this impact is linear in nature (that is, an additional dollar will always yield the same increase in agricultural productivity irrespective of the current agricultural productivity). 
+
+**2.2.2 Estimating Existing Aid**
+In order to estimate the current amount of aid present for agriculture in each administrative unit, the generic monte carlo procedure suggested in {Jeroen et al. 2003} is modified to account for the multi-scalar precisional uncertainties in the AidData database.  For example, many of the aid allocation projects present in the database are known to be allocated at a single project point (no precisional uncertainty), while other projects are only known at a given administrative unit (i.e., "an unknown location within a district") or simply known to be present somewhere witin the country.  Another type of error is for those projects which are split across multiple points.  For example, agricultural projects to drill wells for irrigation may have a known total funding amount and perfect spatial information, but the geographic allocation of this funding across points is uncertain.
+
+To quantify the impact of these interacting uncertainties, multiple equiprobable surfaces of aid allocation are created following the following, iterative procedure:
+(1) For projects which have precisional uncertainty (i.e., not georefereced to a single point), a random number of points are created at random locations across the unit of analysis the project is known to be located in.[^Rarely, aid projects are aggregated to administrative units for which no geographic representation currently exists - i.e., a national park.  In these cases, an arbitrary buffer of `r buffer` kilometers is used to allocate aid.]
+(2) The total aid dollars for a project are randomly allocated across all geographic units they exist at.
+(3) Aid dollars are aggregated to an approximately 9km resolution (.0833 degree) raster grid (chosen to match the resolution of available agriculture information).
+
+This procedure is repeated `r iterations` times, and summary statistics for all cells are calculated across all iterations (producing five surfaces reporting mean agricultural aid dollars, standard deviation, range, min, and max).  A single example iteration is outlined in figure 2(a) through figure 2(f).  Figure 2a shows a single spatial allocation of possible aid project sites, representing step (1) above.
+
+```{r figure2, echo=FALSE}
+par(mar=c(0,0,0,0),mfrow=c(1,1), pty="s")
+#spplot(geo_agex, c("precision_code"), draw=T, cuts=1, axes=TRUE, scales=list(draw=TRUE), auto.key=FALSE,legendEntries=c("Agricultural project location"),  xlab=expression("Longitude"^o), ylab=expression("Latitude"^o), col.regions=c("Black"), cex=0.3, sp.layout=list("sp.polygons",ADM_0), par.settings=theme.novpadding)
+
+spplot(geo_agex,c("precision_code"),cuts=1,col.regions=c("black"),legendEntries=c("Agricultural Aid Project"),cex=0.5, xlab=expression("Longitude"^o), ylab=expression("Latitude"^o), sp.layout=list("sp.polygons",ADM_0),axes=TRUE, scales=list(draw=TRUE), xlim=w_e, ylim=s_n)
+
+```
+```
+Figure 2. Example of a single Monte Carlo iteration: allocation of project locations.
+```
+
+
+**2.2.3 Modeling Strategies for Allocating New Aid**
+Three modeling strategies are followed, each with an increasing amount of spatial information.  
+
+
+In model *A*, a theoretical decision maker allocates new aid for each administrative unit according to the following equation:
+
+$\frac{1}{n} \sum_{i=i}^{n} x_{i}$
+
+
+
+
+3.0 Results
+-----------------------------
+
+4.0 Discussion
+-----------------------------
+
+5.0 Conclusion
+-----------------------------
+
+Acknowledgements
+-----------------------------
+
+Literature
+-----------------------------
+
+Tables
+-----------------------------
+
+Figures
+-----------------------------
+
+
+
+
+
+
+
+

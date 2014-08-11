@@ -34,36 +34,17 @@ w_e = c(80,88.25)
 #(s,n)
 s_n=c(26,30.5)
 
-#Number of iterations for the Monte Carlo
-iterations = 1
-
-#Buffer (in km) for points that are attributed to regions - i.e., state parks.
 buffer = 50
 
-#Sector
-sector = "AGRICULTURE"
-
-#Precision Code Shape Files
-#For precision codes that require a shape file to join to,
-#Define the file paths to those shape files.
-
-PC1_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM4.shp"
-
-PC2_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM3.shp"
-
-PC3_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM2.shp"
-
-PC4_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM1.shp"
-
-
-#Maximum number of points to disburse projects across
-MaxPrj = 50
+iterations = 1000
 
 #------------------------------
 #Define functions
 #------------------------------
 commaUS <- function(x) sprintf("$%s", formatC(x, format="fg",  
 big.mark = ","))
+
+
 
 theme.novpadding <-
     list(layout.heights =
@@ -104,154 +85,12 @@ Geo_db = SpatialPointsDataFrame(list(Geo_db$longitude,Geo_db$latitude), Geo_db)
 
 ADM_0 = gUnaryUnion(ADM_shp)
 
-PC1_geo = readShapePoly(PC1_shapefile)
-PC2_geo = readShapePoly(PC2_shapefile)
-PC3_geo = readShapePoly(PC3_shapefile)
-PC4_geo = readShapePoly(PC4_shapefile)
+agex <- AMP_raw_data[grep("AGRICULTURE", AMP_raw_data$amp_sector_name),]
+geo_agex <- Geo_db[grep("AGRICULTURE", Geo_db@data$amp_sector_name),]
 
 ```
 
-```{r Agriculture_Processing, include=FALSE}
-#Includes all code to produce agriculture-only dataset from the full dataset.
-agex <- AMP_raw_data[grep(sector, AMP_raw_data$amp_sector_name),]
 
-total_aid = sum(agex$total_c_to_2012)
-
-geo_agex <- Geo_db[grep(sector, Geo_db@data$amp_sector_name),]
-
-
-country_scale_aid_to_distribute = 0
-
-country_scale_undistributed_project_count = 0
-
-MC_realizations <-vector()
-for (MC_cnt in 1:iterations)
-  {
-  j_geo = data.frame()
-  #nrow(agex)
-  for (i in 1:15)
-    {
-    #For projects that are not geocoded, track them so we can distribute nation-wide later.
-    #Note in all cases we track both the # of projects (for "probability of 
-    #project occurence") as well as the total $ of aid.
-    #Further, we need to have a minimum # of projects to randomly distribute to at the country level.
-    
-    
-    #If not geocoded, add it into our big bucket of aid (but not if it is cancelled).
-    if(agex["geocoded"][[1]][i] == 0 && agex["status"][[1]][i] != "Cancelled")
-      {
-      country_scale_aid_to_distribute = country_scale_aid_to_distribute + agex["total_c_to_2012"][[1]][i]
-      country_scale_undistributed_project_count = country_scale_undistributed_project_count + 1
-      }
-    
-    
-    #For projects that are geocoded, 
-    else
-      {
-        #Count the total number of geocoded instances - i.e., if it's represented by multiple points.
-        sum(geo_agex@data["project_ID"] == agex["project_ID"][[1]][[i]])
-        
-        #Total funding for this project
-        total_funds_i = agex["total_c_to_2012"][[1]][i]
-        
-        #Iterate through each geocoded element that belongs in this project.
-        iter_geo_agex = geo_agex[which(geo_agex$project_ID == agex["project_ID"][[1]][[i]]),]
-        
-        #Initial loop to randomly allocate dollar amounts to rows in a project.
-        proj_dollar_rnd = vector()
-        proj_dollar_row = vector()
-        tot_rnd = 0
-        for(k in 1:nrow(iter_geo_agex))
-          {
-          proj_dollar_rnd[k] = runif(1,0,10)
-          tot_rnd = tot_rnd + proj_dollar_rnd[k]
-          }
-        
-        for(k in 1:nrow(iter_geo_agex))
-          {
-          proj_dollar_row[k] = (proj_dollar_rnd[k]/tot_rnd) * total_funds_i
-          }
-        
-        for (k in 1:nrow(iter_geo_agex))
-          {
-          #Precision code for this project location.
-          PC_k = iter_geo_agex["precision_code"][[1]][k]
-          
-          #If the precision code is 1, we aggregate to GADM-4
-          #This is done in all cases - even if we "know more precise information"
-          #As we do not have spatial data on the location of more precise points - 
-          #i.e., we don't know urban extents.          
-          
-          if(PC_k == 1)
-            {
-            #Need to turn this into a defined function soon
-            PC1_Overlay = as.character(over(iter_geo_agex[k,],PC1_geo)$V_ID)
-            PC1_poly = PC1_geo[which(PC1_geo$V_ID == PC1_Overlay),]
-            #Polymap
-            
-            #Generate random points
-            RndPrjCount = sample(2:MaxPrj,1)
-            PC1_csr_Poly = slot(slot(slot(PC1_poly,"polygons")[[1]],"Polygons")[[1]],"coords")
-            PC1_rnd_Points = csr(PC1_csr_Poly,RndPrjCount)
-            
-            row_dollars = proj_dollar_rnd[k]
-            
-            row_rnd_tot = 0
-            row_dollar_rnd = vector()
-            for(l in 1:nrow(PC1_rnd_Points))
-              {
-              row_dollar_rnd[l] = runif(1,0,10)
-              row_rnd_tot = row_rnd_tot + row_dollar_rnd[l]
-              }
-            
-            poly_return = cbind(PC1_rnd_Points,0)
-            for(l in 1:nrow(PC1_rnd_Points))
-              {
-              poly_return[l,][3] = row_dollars * (row_dollar_rnd[l] /  row_rnd_tot)
-              }
-            
-            
-            
-            j_geo = rbind(j_geo,poly_return)
-            }
-          
-          if(PC_k == 2)
-            {
-            #---------Here 7/28
-            }
-          
-          #LEFT OFF HERE - WE NOW ENTER ALL THE PRECISION CODE 1s INTO j_geo
-          #NEED TO HANDLE RANDOM DISTRIBUTION OF OTHER CODES NEXT
-          #THEN MONEY ALLOCATIONS (TWO ALLOCATIOSN REALLY - ONE IS JUST A COUNT)
-          
-          }
-     
-        
-        
-        #If it's precision code 1, it's accurately represented as a point 
-        #and can be safely skipped this step
-        #Otherwise, we need to play the monte-carlo game.
-        
-      }
-    
-  
-  }
-  MC_realizations[MC_cnt,] = j_geo
-}
-
-
-
-#agex <- AMP_raw_data[which(grep("AGRICULTURE", AMP_raw_data$amp_sector_name)>0),]
-
-#geo_agex <- Geo_db[which(Geo_db@data$amp_sector_name == "AGRICULTURE" & Geo_db@data$status != "Completed"),]
-```
-
-```{r MonteCarlo_Procedure, include=FALSE}
-#For each point, we assess the precision code, join to the appropriate spatial object, create random points to represent where it could be located (N times, defined in the iteration count), and then join these back together to create random realizations of where aid could be allocated.  Final step aggregates these to a raster surface.
-
-
-
-```
 
 STATUS: Draft - 0.1
 GOAL: Academic Publication

@@ -25,7 +25,7 @@ w_e = c(80,88.25)
 s_n=c(26,30.5)
 
 #Number of iterations for the Monte Carlo
-iterations = 1
+iterations = 1000
 
 #Buffer (in km) for points that are attributed to regions - i.e., state parks.
 buffer = 50
@@ -126,13 +126,14 @@ total_aid = sum(agex$total_c_to_2012)
 geo_agex <- Geo_db[grep(sector, Geo_db@data$amp_sector_name),]
 
 
-country_scale_aid_to_distribute = 0
 
-country_scale_undistributed_project_count = 0
 
 
 for (MC_cnt in 1:iterations)
 {
+  country_scale_aid_to_distribute = 0
+  
+  country_scale_undistributed_project_count = 0
   j_geo = data.frame()
   for (i in 1:nrow(agex))
   {

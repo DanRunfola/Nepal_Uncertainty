@@ -1,5 +1,7 @@
 library(sp)
 library(rgdal)
+library(GISTools)
+library(splancs)
 #library(RColorBrewer)
 #library(gridExtra)
 #library(lattice)
@@ -10,11 +12,10 @@ library(rgdal)
 #library(grid)
 #library(Cairo)
 #library(data.table)
-#library(grid)
 #library(gridExtra)
-#library(splancs)
 
-wd = "/home/aiddata/Desktop/R_Repo/Nepal_Uncertainty/Output"
+
+wd = "/home/aiddata/Desktop/R_Repo/Nepal_Uncertainty/"
 setwd(wd) 
 
 #Lat/Lon extents for maps (for easy reference)
@@ -25,7 +26,7 @@ w_e = c(80,88.25)
 s_n=c(26,30.5)
 
 #Number of iterations for the Monte Carlo
-iterations = 1000
+iterations = 1
 
 #Buffer (in km) for points that are attributed to regions - i.e., state parks.
 buffer = 50
@@ -37,15 +38,17 @@ sector = "AGRICULTURE"
 #For precision codes that require a shape file to join to,
 #Define the file paths to those shape files.
 
-PC1_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM4.shp"
+PC1_shapefile = "/home/aiddata/Desktop/R_Repo/Nepal_Uncertainty/Input/Nepal_AidData/GIS/NP_ADM4.shp"
 
-PC2_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM3.shp"
+PC2_shapefile = "/home/aiddata/Desktop/R_Repo/Nepal_Uncertainty/Input/Nepal_AidData/GIS/NP_ADM3.shp"
 
-PC3_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM2.shp"
+PC3_shapefile = "/home/aiddata/Desktop/R_Repo/Nepal_Uncertainty/Input/Nepal_AidData/GIS/NP_ADM2.shp"
 
-PC4_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM1.shp"
+PC4_shapefile = "/home/aiddata/Desktop/R_Repo/Nepal_Uncertainty/Input/Nepal_AidData/GIS/NP_ADM1.shp"
 
-PC_Country_shapefile = "C:\\GDrive\\AidData\\Sandbox\\Nepal_AidData\\GIS\\NP_ADM0.shp"
+PC_Country_shapefile = "/home/aiddata/Desktop/R_Repo/Nepal_Uncertainty/Input/Nepal_AidData/GIS/NP_ADM0.shp"
+
+
 
 PC1_geo = readShapePoly(PC1_shapefile)
 PC2_geo = readShapePoly(PC2_shapefile)
@@ -103,11 +106,11 @@ Over_Rnd <- function(PC_geo,iter_geo,row_dollars,PC)
   
   return(poly_return)
 }
-GIS_csv = file.path("Nepal_AidData","NPL_geocoded_projectLocations.csv")
+GIS_csv = file.path("Input/Nepal_AidData","NPL_geocoded_projectLocations.csv")
 path = normalizePath(GIS_csv)
 GIS_raw_data = read.csv(path,stringsAsFactors = FALSE)
 
-AMP_data_csv = file.path("Nepal_AidData","NPL_AMP_projects.csv")
+AMP_data_csv = file.path("Input/Nepal_AidData","NPL_AMP_projects.csv")
 AMP_path = normalizePath(AMP_data_csv)
 AMP_raw_data = read.csv(AMP_path,stringsAsFactors = FALSE)
 

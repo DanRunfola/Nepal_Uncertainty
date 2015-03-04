@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gmd:MD_Metadata xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://www.isotc211.org/2005/gmd/gmd.xsd">
+	<gmd:fileIdentifier>
+	     <gco:CharacterString xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:srv="http://www.isotc211.org/2005/srv">11875af0-5db1-4aa7-bd64-a4aa5ddbe5aa</gco:CharacterString>
+	</gmd:fileIdentifier>
+    	<gmd:language>
+        	<gco:CharacterString>English</gco:CharacterString>
+    	</gmd:language>	
+	<gmd:contact>
+	        <gmd:CI_ResponsibleParty>
+	            <gmd:individualName>
+	                <gco:CharacterString>Patrizia Monteduro</gco:CharacterString>
+	            </gmd:individualName>
+	            <gmd:organisationName>
+	                 <gco:CharacterString>FAO-UN</gco:CharacterString>
+	            </gmd:organisationName>
+	            <gmd:positionName>
+	                 <gco:CharacterString>Consultant</gco:CharacterString>
+	            </gmd:positionName>
+	            <gmd:contactInfo>
+                         <gmd:CI_Contact>
+                              <gmd:address>
+                                   <gmd:CI_Address>
+                                        <gmd:electronicMailAddress>
+                                             <gco:CharacterString>GAEZ@fao.org</gco:CharacterString>
+                                        </gmd:electronicMailAddress>
+                                   </gmd:CI_Address>
+                              </gmd:address>
+                         </gmd:CI_Contact>
+	            </gmd:contactInfo>
+                    <gmd:role>
+                         <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="Author"/>
+                    </gmd:role>
+	        </gmd:CI_ResponsibleParty>
+	</gmd:contact>
+	<gmd:dateStamp>
+             <gco:DateTime xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:srv="http://www.isotc211.org/2005/srv">2011-10-01</gco:DateTime>
+	</gmd:dateStamp>	
+	<gmd:metadataStandardName>
+             <gco:CharacterString xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:srv="http://www.isotc211.org/2005/srv">ISO 19115:2003/19139</gco:CharacterString>
+	</gmd:metadataStandardName>
+	<gmd:metadataStandardVersion>
+             <gco:CharacterString xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:srv="http://www.isotc211.org/2005/srv">1.0</gco:CharacterString>
+	</gmd:metadataStandardVersion>
+	<gmd:spatialRepresentationInfo>
+             <gmd:MD_GridSpatialRepresentation>
+                  <gmd:numberOfDimensions>
+                       <gco:Integer>2</gco:Integer>
+                  </gmd:numberOfDimensions>
+                  <gmd:axisDimensionProperties>
+                       <gmd:MD_Dimension>
+                            <gmd:dimensionName>
+                                 <gmd:MD_DimensionNameTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_DimensionNameTypeCode" codeListValue="row"/>
+                            </gmd:dimensionName>
+                            <gmd:dimensionSize>
+                                 <gco:Integer>2160</gco:Integer>
+                            </gmd:dimensionSize>
+                            <gmd:resolution>
+                                 <gco:Length uom="decimal degree">0.083333333</gco:Length>
+                            </gmd:resolution>
+                       </gmd:MD_Dimension>
+                  </gmd:axisDimensionProperties>
+                  <gmd:axisDimensionProperties>
+                       <gmd:MD_Dimension>
+                            <gmd:dimensionName>
+                                 <gmd:MD_DimensionNameTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_DimensionNameTypeCode" codeListValue="column"/>
+                            </gmd:dimensionName>
+                            <gmd:dimensionSize>
+                                 <gco:Integer>4320</gco:Integer>
+                            </gmd:dimensionSize>
+                            <gmd:resolution>
+                                 <gco:Length uom="decimal degree">0.083333333</gco:Length>
+                            </gmd:resolution>
+                       </gmd:MD_Dimension>
+                  </gmd:axisDimensionProperties>
+                  <gmd:cellGeometry>
+                       <gmd:MD_CellGeometryCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_CellGeometryCode" codeListValue="area"/>
+                  </gmd:cellGeometry>
+                  <gmd:transformationParameterAvailability>
+                       <gco:Boolean>false</gco:Boolean>
+                  </gmd:transformationParameterAvailability>
+             </gmd:MD_GridSpatialRepresentation>
+	</gmd:spatialRepresentationInfo>
+	<gmd:referenceSystemInfo>
+             <gmd:MD_ReferenceSystem>
+                  <gmd:referenceSystemIdentifier>
+                       <gmd:RS_Identifier>
+                            <gmd:code>
+                                 <gco:CharacterString>EPSG:4326 - WGS84  - Geographic Coordinate System (lat/long)</gco:CharacterString>
+                            </gmd:code>
+                       </gmd:RS_Identifier>
+                  </gmd:referenceSystemIdentifier>
+             </gmd:MD_ReferenceSystem>
+	</gmd:referenceSystemInfo>		
+	<gmd:identificationInfo>
+             <gmd:MD_DataIdentification>
+                  <gmd:citation>
+                       <gmd:CI_Citation>
+                            <gmd:title>
+                                 <gco:CharacterString>Agro-climatically attainable yield for low input level irrigated japonica wetland rice, 105 days for baseline period 1961-1990.</gco:CharacterString>
+                            </gmd:title>
+                            <gmd:date>
+                                 <gmd:CI_Date>
+                                      <gmd:date>
+                                           <gco:Date>2012-05-02</gco:Date>
+                                      </gmd:date>
+                                      <gmd:dateType>
+                                           <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="publication"/>
+                                      </gmd:dateType>
+                                 </gmd:CI_Date>
+                            </gmd:date>
+                            <gmd:series>
+                                 <gmd:CI_Series>
+                                      <gmd:name>
+                                           <gco:CharacterString>Suitability and Potential Yield (GAEZ Theme)</gco:CharacterString>
+                                      </gmd:name>
+                                 </gmd:CI_Series>
+                            </gmd:series>
+                            <gmd:collectiveTitle>
+                                 <gco:CharacterString>Agro-climatic yield</gco:CharacterString>
+                            </gmd:collectiveTitle>                                      
+                       </gmd:CI_Citation>
+                  </gmd:citation>
+                  <gmd:abstract>
+                       <gco:CharacterString>Agro-climatically attainable yield estimated for low input level irrigated japonica wetland rice, 105 days. The model has been applied considering the Average climate of baseline period 1961-1990 This dataset is the result of the calculation procedures of GAEZ Module I (Climate data analysis and compilation of general agro-climatic indicators), Module II (Crop-specific agro climatic assessment and water-limited biomass/yield calculation) and Module III (Agro-climatic constraints). These Modules provide output data on agro-climatically attainable biomass and yield for specific land utilization types (LUTs) under various input/management levels for rain-fed and irrigated conditions...(more information on Module I, II and III results in the Supplemental Information section of this metadata).	       
+
+Climate Data Source
+The GAEZ assessments use time series data from the Climate Research Unit (CRU) at the University of East Anglia, 10 arc-minute latitude/longitude gridded average monthly climate data, version CRU CL 2.0 (New 2002), and 30 arc-minute latitude/longitude gridded monthly climate data time series for the period 1901-2002, version CRU TS 2.1 (Mitchell 2005). 
+Precipitation, time series data (1960-2000) of from the Global Precipitation Climatology Centre GPCC was used. This gridded data set is referred to as VASClimO (Variability Analysis of Surface Climate Observations).
+
+Administrative areas
+The source of the administrative areas in the GAEZ is the Global Administrative Unit Layers (GAUL). GAUL is an initiative implemented by the Food and Agriculture Organization (FAO) of the United Nations and  provides authoritative global spatial information on administrative units for all countries in the world. In particular, the data set at national and sub-national level applied in GAEZ v3.0 refers to the GAUL release 2009. Country names follow the official FAO NOCS names. For use in GAEZ, GAUL vector data have been transformed respectively to rasters of 5 arc-minutes and 30 arc-second grid-cells. 
+The countries and territories with fewer than 10 pixels are grouped as "Rest of World". For the complete list of countries included in this category, please refers to the supplemental information of this metadata.  
+According to GAUL 2009/08, areas and territories where ownership is unclear, or disputed, are flagged as "GAEZ disputed areas and territories" as defined by the United Nation Cartographic Section (UNCS). They include: Aksai Chin, Arunashal Pradesh, China/India, Hala&#39;ib triangle, Ilemi triangle, Jammu Kashmir, Kuril Islands, Liancourt Rock, Ma&#39;tan al-Sarra, Navassa Island, Paracel Islands, Scarborough Reef, Senkaku Islands, Spratly Islands.
+For aggregating GAEZ country results and information at regional and continental level, the countries included in the GAUL have been codified according to three levels of supra-national regionalization as follows:
+- Region, including Central America and Caribbean, Europe, Northern Africa and West Asia, Northern America, Oceania, South America, Southern and Eastern Asia, Sub-Saharan Africa.
+- Sub-Region, including Australia and New Zealand, Caribbean, Central Africa, Central America, Central Asia, Eastern Africa, Eastern Asia, Eastern Europe, Gulf of Guinea, Northern Africa, Northern America, Northern Europe, Pacific Islands, South America, South-eastern Asia, Southern Africa, Southern Asia, Southern Europe, Sudano-Sahelian Africa, Western Asia, Western Europe.
+- Income, distinct in "High income", "Low income", "Lower middle income", "Upper middle income" and  "not available".
+
+Summary of Parameters Applied
+Water supply: irrigated
+Input level: low input level
+Crop: japonica wetland rice, 105 days
+Time: baseline period 1961-1990
+Scenario: 
+CO2 Fertilization: 
+
+Input Level conditions
+Crop production has been considered with low input level conditions. Under a low level of inputs (traditional management assumption), the farming system is largely subsistence based. Production is based on the use of traditional cultivars (if improved cultivars are used, they are treated in the same way as local cultivars), labour intensive techniques, and no application of nutrients, no use of chemicals for pest and disease control and minimum conservation measures.
+
+Time period description
+baseline period 1961-1990: Results of climate and agro-climatic analysis based on mean climatic data for the period 1961-1990.
+
+Scenario description
+: 
+
+                       </gco:CharacterString>
+                  </gmd:abstract>
+    		  <gmd:pointOfContact>
+        	       <gmd:CI_ResponsibleParty>
+                            <gmd:individualName>
+                                 <gco:CharacterString>John Latham</gco:CharacterString>
+                            </gmd:individualName>
+                            <gmd:organisationName>
+                                 <gco:CharacterString>FAO-UN</gco:CharacterString>
+                            </gmd:organisationName>
+                            <gmd:positionName>
+                                 <gco:CharacterString>Senior Environment Officer</gco:CharacterString>
+                            </gmd:positionName>
+                            <gmd:contactInfo>
+                                 <gmd:CI_Contact>
+                                      <gmd:address>
+                                           <gmd:CI_Address>
+                                                <gmd:electronicMailAddress>
+                                                     <gco:CharacterString>GAEZ@fao.org</gco:CharacterString>
+                                                </gmd:electronicMailAddress>
+                                           </gmd:CI_Address>
+                                      </gmd:address>
+                                </gmd:CI_Contact>
+                            </gmd:contactInfo>
+                            <gmd:role>
+                                 <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="pointOfContact"/>
+                            </gmd:role>
+        	       </gmd:CI_ResponsibleParty>
+    		  </gmd:pointOfContact>
+    		  <gmd:pointOfContact>
+        	       <gmd:CI_ResponsibleParty>
+                            <gmd:individualName>
+                                 <gco:CharacterString>Renato Cumani</gco:CharacterString>
+                            </gmd:individualName>
+                            <gmd:organisationName>
+                                 <gco:CharacterString>FAO-UN</gco:CharacterString>
+                            </gmd:organisationName>
+                            <gmd:positionName>
+                                 <gco:CharacterString>Environment Officer</gco:CharacterString>
+                            </gmd:positionName>
+                            <gmd:contactInfo>
+                                 <gmd:CI_Contact>
+                                      <gmd:address>
+                                           <gmd:CI_Address>
+                                                <gmd:electronicMailAddress>
+                                                     <gco:CharacterString>GAEZ@fao.org</gco:CharacterString>
+                                                </gmd:electronicMailAddress>
+                                           </gmd:CI_Address>
+                                      </gmd:address>
+                                </gmd:CI_Contact>
+                            </gmd:contactInfo>
+                            <gmd:role>
+                                 <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="pointOfContact"/>
+                            </gmd:role>
+        	       </gmd:CI_ResponsibleParty>
+    		  </gmd:pointOfContact>
+    		  <gmd:pointOfContact>
+        	       <gmd:CI_ResponsibleParty>
+                            <gmd:individualName>
+                                 <gco:CharacterString>Guenther Fischer</gco:CharacterString>
+                            </gmd:individualName>
+                            <gmd:organisationName>
+                                 <gco:CharacterString>IIASA</gco:CharacterString>
+                            </gmd:organisationName>
+                            <gmd:positionName>
+                                 <gco:CharacterString>Senior Research Scholar</gco:CharacterString>
+                            </gmd:positionName>
+                            <gmd:contactInfo>
+                                 <gmd:CI_Contact>
+                                      <gmd:address>
+                                           <gmd:CI_Address>
+                                                <gmd:electronicMailAddress>
+                                                     <gco:CharacterString>fisher@iiasa.ac.at</gco:CharacterString>
+                                                </gmd:electronicMailAddress>
+                                           </gmd:CI_Address>
+                                      </gmd:address>
+                                </gmd:CI_Contact>
+                            </gmd:contactInfo>
+                            <gmd:role>
+                                 <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="pointOfContact"/>
+                            </gmd:role>
+        	       </gmd:CI_ResponsibleParty>
+    		  </gmd:pointOfContact>
+    		  <gmd:pointOfContact>
+        	       <gmd:CI_ResponsibleParty>
+                            <gmd:individualName>
+                                 <gco:CharacterString>Harrij van Velthuizen</gco:CharacterString>
+                            </gmd:individualName>
+                            <gmd:organisationName>
+                                 <gco:CharacterString>IIASA</gco:CharacterString>
+                            </gmd:organisationName>
+                            <gmd:positionName>
+                                 <gco:CharacterString>Senior Research Scholar</gco:CharacterString>
+                            </gmd:positionName>
+                            <gmd:contactInfo>
+                                 <gmd:CI_Contact>
+                                      <gmd:address>
+                                           <gmd:CI_Address>
+                                                <gmd:electronicMailAddress>
+                                                     <gco:CharacterString>velt@iiasa.ac.at</gco:CharacterString>
+                                                </gmd:electronicMailAddress>
+                                           </gmd:CI_Address>
+                                      </gmd:address>
+                                </gmd:CI_Contact>
+                            </gmd:contactInfo>
+                            <gmd:role>
+                                 <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="pointOfContact"/>
+                            </gmd:role>
+        	       </gmd:CI_ResponsibleParty>
+    		  </gmd:pointOfContact>
+    		  <gmd:graphicOverview>
+        	       <gmd:MD_BrowseGraphic>
+                  	    <gmd:fileName>
+                                 <gco:CharacterString>http://gaez.fao.org/getImage?uuid=11875af0-5db1-4aa7-bd64-a4aa5ddbe5aa&amp;size=small</gco:CharacterString>
+                            </gmd:fileName>
+                            <gmd:fileDescription>
+                                 <gco:CharacterString>thumbnail</gco:CharacterString>
+                            </gmd:fileDescription>
+                            <gmd:fileType>
+                                 <gco:CharacterString>png</gco:CharacterString>
+                            </gmd:fileType>
+        	       </gmd:MD_BrowseGraphic>
+    		  </gmd:graphicOverview>
+                  <gmd:graphicOverview>
+                       <gmd:MD_BrowseGraphic>
+                            <gmd:fileName>
+                                 <gco:CharacterString>http://gaez.fao.org/getImage?uuid=11875af0-5db1-4aa7-bd64-a4aa5ddbe5aa&amp;size=large</gco:CharacterString>
+                            </gmd:fileName>
+                            <gmd:fileDescription>
+                                 <gco:CharacterString>large_thumbnail</gco:CharacterString>
+                            </gmd:fileDescription>
+                            <gmd:fileType>
+                                 <gco:CharacterString>png</gco:CharacterString>
+                            </gmd:fileType>
+                       </gmd:MD_BrowseGraphic>
+                  </gmd:graphicOverview>                                                      
+                  <gmd:descriptiveKeywords>
+                       <gmd:MD_Keywords>
+                            <gmd:keyword>
+                                 <gco:CharacterString>GAEZ</gco:CharacterString>
+                            </gmd:keyword>
+                            <gmd:keyword>
+                                 <gco:CharacterString>Suitability and Potential Yield</gco:CharacterString>
+                            </gmd:keyword>
+                            <gmd:keyword>
+                                 <gco:CharacterString>Agro-climatic yield</gco:CharacterString>
+                            </gmd:keyword>
+                            <gmd:keyword>
+                                 <gco:CharacterString>agro-climatically attainable yield</gco:CharacterString>
+                            </gmd:keyword>                            
+			    <gmd:keyword>
+                                 <gco:CharacterString>Japonica wetland rice, 105 days</gco:CharacterString>
+                            </gmd:keyword>                            
+                            <gmd:type>
+                                 <gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_KeywordTypeCode" codeListValue="theme"/>
+                            </gmd:type>
+                       </gmd:MD_Keywords>
+                  </gmd:descriptiveKeywords>
+                  <gmd:descriptiveKeywords>
+                       <gmd:MD_Keywords>
+                            <gmd:keyword>
+                                 <gco:CharacterString>World</gco:CharacterString>
+                            </gmd:keyword>
+                            <gmd:type>
+                                 <gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_KeywordTypeCode" codeListValue="place"/>   
+                            </gmd:type>
+                       </gmd:MD_Keywords>
+                  </gmd:descriptiveKeywords>
+                  <gmd:resourceConstraints>
+                       <gmd:MD_LegalConstraints>
+                            <gmd:otherConstraints>
+                                 <gco:CharacterString>FAO and IIASA are the sole and exclusive owners of all rights, titles and interests, including trademarks, copyrights, trade names, trade secrets and other intellectual property rights, contained in the data and software of GAEZ.
+The data are for non-commercial use only. No third party distribution is permitted.
+Acknowledgements and citation. Full acknowledgement and citation in any materials or publications derived in part or in whole from GAEZ data is required and must be cited as follows: FAO/IIASA, 2010. Global Agro-ecological Zones (GAEZ v3.0). FAO, Rome, Italy and IIASA, Laxenburg, Austria.
+                                 </gco:CharacterString>
+                            </gmd:otherConstraints>
+                       </gmd:MD_LegalConstraints>
+                  </gmd:resourceConstraints>
+                  <gmd:language>
+                       <gco:CharacterString>English</gco:CharacterString>
+                  </gmd:language>
+                  <gmd:language>
+                       <gco:CharacterString>French</gco:CharacterString>
+                  </gmd:language>
+                  <gmd:language>
+                       <gco:CharacterString>Spanish</gco:CharacterString>
+                  </gmd:language>
+                  <gmd:characterSet>
+                       <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_CharacterSetCode" codeListValue="utf8"/>
+                  </gmd:characterSet>
+                  <gmd:topicCategory>
+                       <gmd:MD_TopicCategoryCode>Farming,
+Climatology-Meteorology-Atmosphere</gmd:MD_TopicCategoryCode>
+                  </gmd:topicCategory>
+                  <gmd:extent>
+                       <gmd:EX_Extent>
+                            <gmd:geographicElement>
+                                 <gmd:EX_GeographicBoundingBox>
+                                      <gmd:westBoundLongitude>
+                                           <gco:Decimal>-180</gco:Decimal>
+                                      </gmd:westBoundLongitude>
+                                      <gmd:eastBoundLongitude>
+                                           <gco:Decimal>-90</gco:Decimal>
+                                      </gmd:eastBoundLongitude>
+                                      <gmd:southBoundLatitude>
+                                           <gco:Decimal>180</gco:Decimal>
+                                      </gmd:southBoundLatitude>
+                                      <gmd:northBoundLatitude>
+                                           <gco:Decimal>90</gco:Decimal>
+                                      </gmd:northBoundLatitude>
+                                 </gmd:EX_GeographicBoundingBox>
+                            </gmd:geographicElement>
+                            <gmd:temporalElement>
+                                 <gmd:EX_TemporalExtent>
+                                      <gmd:extent>
+                                           <gml:TimePeriod gml:id="d6e432a1049886">
+                                                <gml:metaDataProperty>
+                                                     <gml:GenericMetaData>Average climate of baseline period 1961-1990</gml:GenericMetaData>
+                                                </gml:metaDataProperty>
+                                           </gml:TimePeriod>
+                                      </gmd:extent>
+                                 </gmd:EX_TemporalExtent>
+                            </gmd:temporalElement>
+                       </gmd:EX_Extent>
+                  </gmd:extent>
+                  <gmd:supplementalInformation>
+                       <gco:CharacterString>Results of GAEZ Module I provide climate data analysis and compilation of general agro-climatic indicators. Module I calculates climate-related variables and indicators for each grid-cell. The module processes spatial grids of historical, base line and projected future climate to create layers of agro-climatic indicators relevant to plant production.
+Results of Module II provide crop-specific agro-climatic assessment and potential water-limited biomass/yield calculation. Module II assesses for all land utilization types (LUT) water-limited biomass and yields, crop and pasture, LUTs for each of the assumed input levels. Results of Module II include LUT-specific temperature/radiation defined maximum yields, yield reduction factors accounting for sub-optimum thermal conditions, for yield impacts due to soil water deficits, estimated amounts of soil water deficit, potential and actual LUT evapotranspiration, accumulated temperature sums during each LUT crop cycle, and optimum crop calendars. 
+Results of Module III update for each grid cell the output file of Module II by filling in the respective LUT agro-climatic constraints yield reduction factors. At this stage, the results of agro-climatic suitability can be mapped for spatial verification and further use in applications. A detailed description of GAEZ structure and procedures in the GAEZ v.3.0 Global Agro Ecological Zones - Model Documentation at http://typo3.fao.org/fileadmin/user_upload/gaez/docs/GAEZ_Model_Documentation.pdf). 
+
+Supplemental information on Administrative areas
+"Rest of World" Countries: American Samoa, Anguilla, Antarctica, Aruba, Ashmore and Cartier Islands, Azores Islands, Baker Island, Bassas da India, Bermuda, Bird Island, Bouvet Island British Indian Ocean Territory, British Virgin Islands, Cayman Islands, Christmas Island, Clipperton Island, Cocos (Keeling) Islands, Dhekelia and Akrotiri SBA, Europa Island, Falkland Islands, Fr South and Antarctic Territories, French Guiana, French Polynesia, Gaza Strip, Gibraltar, Glorioso Island, Greenland, Guadeloupe, Guam, Guernsey, Heard Island and McDonald Island, Howland Island, Isle of Man, Jarvis Island, Jersey, Johnston Atoll, Juan de Nova Island, Kingman Reef, Madeira Islands, Martinique, Mayotte, Midway Island, Montserrat, Netherlands Antilles, New Caledonia, Norfolk Island, Northern Mariana Islands, Palmyra Atoll, Pitcairn, Puerto Rico, R&#233;union, S.Georgia and S.Sandwich Island, St Helena, St Pierre et Miquelon, Svalbard and Jan Mayen Island, Tromelin Island, Turks and Caicos Islands, United States Virgin Islands, Wake Island, Wallis and Futuna Islands, West Bank, Western Sahara.
+			</gco:CharacterString>
+                  </gmd:supplementalInformation>
+             </gmd:MD_DataIdentification>
+	</gmd:identificationInfo>
+        <gmd:distributionInfo>
+             <gmd:MD_Distribution>
+                  <gmd:transferOptions>
+                       <gmd:MD_DigitalTransferOptions>
+                            <gmd:onLine>
+                                 <gmd:CI_OnlineResource>
+                                      <gmd:linkage>
+                                           <gmd:URL>http://data.fao.org/maps/wms?service=WMS&amp;version=1.1.0&amp;request=GetMap&amp;styles=&amp;bbox=-180.0,-90.0,180.0,90.0&amp;width=660&amp;height=330&amp;srs=EPSG:4326&amp;format=image/png&amp;sld=http://gaez.fao.org/getSLD?id=pixGAEZtiffyld256w8672240195P&amp;transparent=true&amp;cql_filter=gaez_id=&apos;res02_crav6190l_l021_000_yld&apos;</gmd:URL>
+                                      </gmd:linkage>
+                                      <gmd:protocol>
+                                           <gco:CharacterString>OGC:WMS-1.1.1-http-get-map</gco:CharacterString>
+                                      </gmd:protocol>
+                                      <gmd:name>
+                                           <gco:CharacterString>GAEZ:tiff</gco:CharacterString>
+                                      </gmd:name>
+                                      <gmd:description>				      
+ 		    <gco:CharacterString>Agro-climatically attainable yield for low input level irrigated japonica wetland rice, 105 days for baseline period 1961-1990</gco:CharacterString>				      
+                                      </gmd:description>
+                                 </gmd:CI_OnlineResource>
+                            </gmd:onLine>
+                       </gmd:MD_DigitalTransferOptions>
+                  </gmd:transferOptions>
+             </gmd:MD_Distribution>
+        </gmd:distributionInfo>		
+	<gmd:dataQualityInfo>
+             <gmd:DQ_DataQuality>
+                  <gmd:scope>
+                       <gmd:DQ_Scope>
+                            <gmd:level>
+                                 <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode" codeListValue="dataset"/>
+                            </gmd:level>
+                            <gmd:extent>
+                                 <gmd:EX_Extent>
+                                      <gmd:description>
+                                           <gco:CharacterString>
+Raster Information: 
+Raster type: C - Raster with continuous values representable by a 1-byte or 2-byte integer value
+Aggregation: C - Area-weighted aggregation of non-zero pixel values in target raster
+Scalar: 0.001
+Min: 867 ;  Max: 2240
+Dmin: 1 ;  Dmax: 95P
+Map Unit: kg DW/ha
+Display Unit: t/ha
+Table Unit: t/ha                          
+Statistics Unit: t/ha                          
+
+Note: Scalar multiplier is used for display and download of GAEZ rasters. When using a multiplier (other than 1.0), this value is applied to all the grid values, the minimum and maximum values specified in the .rdc file, and needs to be reflected in the description of the map units.
+Min: Minimum value occurring in raster.
+Max: Maximum value occurring in raster. When &#39;Calc&#39; is specified, then a fixed range is not known and must be calculated by reading and processing all raster values.
+Dmin: Display minimum value.
+Dmax: Display maximum value. &#39;95P&#39; means that the display maximum is calculated from the grid as the 95 % percentile of sorted grid values. &#39;95P0&#39; means the same but calculated for a distribution of grid values excluding zeros.
+                                           </gco:CharacterString>
+                                      </gmd:description>
+                                 </gmd:EX_Extent>
+                            </gmd:extent>
+                       </gmd:DQ_Scope>
+                  </gmd:scope>
+             </gmd:DQ_DataQuality>
+	</gmd:dataQualityInfo>
+	<gmd:metadataMaintenance>
+		<gmd:MD_MaintenanceInformation/>
+	</gmd:metadataMaintenance>
+</gmd:MD_Metadata>
+
+
+
+	
+	
+	
+	
+	
+	
+	

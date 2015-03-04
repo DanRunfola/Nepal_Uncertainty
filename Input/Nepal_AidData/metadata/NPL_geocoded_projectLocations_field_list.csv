@@ -1,0 +1,16 @@
+Field,Level,Source,Description
+projectLocation_ID,L,AidData,"unique row identifier, from PROJECT_ID and GEONAME_ID"
+precision_code,L,AidData,"level of precision for the geographic coordinates (1, 2, 3, 4, 5, 6, or 8)"
+geoname_ID,L,GeoNames,place name identifier
+placename,L,GeoNames,name of the location that corresponds to geoname_ID
+latitude,L,GeoNames,decimal degrees (WGS84)
+longitude,L,GeoNames,decimal degrees (WGS84)
+location_type,L,GeoNames,"describes the type of location (i.e. hospital, airport, populated place)"
+v_id,L,World Bank,identifier for VDCs in Nepal
+v_name,L,World Bank,name of VDC in which coordinates are geocoded
+d_id,L,World Bank,identifier for districts in Nepal
+d_name,L,World Bank,name of district in which coordinates are geocoded
+z_id,L,World Bank,identifier for zones in Nepal
+z_name,L,World Bank,name of zone in which coordinates are geocoded
+r_id,L,World Bank,identifier for regions in Nepal
+r_name,L,World Bank,name of region in which coordinates are geocoded

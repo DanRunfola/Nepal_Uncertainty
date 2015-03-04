@@ -1,0 +1,42 @@
+Field ,Level,Source,Description
+project_ID,P,Nepal AMP,AMP project identifier
+geocoded,P,AidData,"binary field, ""1"" indicates the project is geocoded, ""0"" indicates that it was not geocoded"
+project_title,P,Nepal AMP,AMP project title
+date_of_effectiveness,P,Nepal AMP,date on which all legal requirements are met and agreement comes into effect 
+actual_start_date,P,Nepal AMP,date on which the project became active and project activities begin 
+date_of_agreement,P,Nepal AMP,date on which the project agreement was signed
+donors,P,Nepal AMP,donor organization or donor country
+iati_donor_codes,P,IATI,IATI Organization (Donor) Identifiers
+amp_sector_name,P,Nepal AMP,45 sector designations
+ad_sector_code,P,AidData,name crosswalked from Nepal AMP to AidData
+ad_sector_name,P,AidData,code crosswalked from Nepal AMP to AidData
+status,P,Nepal AMP,"current to release of this dataset (""pipeline"" ""new"" ""ongoing"" ""on-hold"" ""completed"")"
+total_c_to_2012,P,Nepal AMP,sum of commmitments from 2000 to 2012 in USD 2011
+total_d_to_2012,P,Nepal AMP,sum of disbursements from 2000 to 2012 in USD 2011
+c_2000,P,Nepal AMP,"commitments in year 2000, USD 2011"
+c_2001,P,Nepal AMP,"commitments in year 2001, USD 2011"
+c_2002,P,Nepal AMP,"commitments in year 2002, USD 2011"
+c_2003,P,Nepal AMP,"commitments in year 2003, USD 2011"
+c_2004,P,Nepal AMP,"commitments in year 2004, USD 2011"
+c_2005,P,Nepal AMP,"commitments in year 2005, USD 2011"
+c_2006,P,Nepal AMP,"commitments in year 2006, USD 2011"
+c_2007,P,Nepal AMP,"commitments in year 2007, USD 2011"
+c_2008,P,Nepal AMP,"commitments in year 2008, USD 2011"
+c_2009,P,Nepal AMP,"commitments in year 2009, USD 2011"
+c_2010,P,Nepal AMP,"commitments in year 2010, USD 2011"
+c_2011,P,Nepal AMP,"commitments in year 2011, USD 2011"
+c_2012,P,Nepal AMP,"commitments in year 2012, USD 2011"
+c_2013_currentUSD,P,Nepal AMP,"commiements in 2013, current USD"
+d_2001,P,Nepal AMP,"disbursements in year 2001, USD 2011"
+d_2002,P,Nepal AMP,"disbursements in year 2002, USD 2011"
+d_2003,P,Nepal AMP,"disbursements in year 2003, USD 2011"
+d_2004,P,Nepal AMP,"disbursements in year 2004, USD 2011"
+d_2005,P,Nepal AMP,"disbursements in year 2005, USD 2011"
+d_2006,P,Nepal AMP,"disbursements in year 2006, USD 2011"
+d_2007,P,Nepal AMP,"disbursements in year 2007, USD 2011"
+d_2008,P,Nepal AMP,"disbursements in year 2008, USD 2011"
+d_2009,P,Nepal AMP,"disbursements in year 2009, USD 2011"
+d_2010,P,Nepal AMP,"disbursements in year 2010, USD 2011"
+d_2011,P,Nepal AMP,"disbursements in year 2011, USD 2011"
+d_2012,P,Nepal AMP,"disbursements in year 2012, USD 2011"
+d_2013_currentUSD,P,Nepal AMP,"disbursements in 2013, current USD"

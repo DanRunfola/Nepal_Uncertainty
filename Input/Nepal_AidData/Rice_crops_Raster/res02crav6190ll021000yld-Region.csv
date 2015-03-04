@@ -1,0 +1,21 @@
+#########################################################
+# Suitability and Potential Yield
+# > Agro-climatic yield
+# >> Agro-climatically attainable yield for low input level irrigated japonica wetland rice, 105 days for baseline period 1961-1990
+#
+# Crop: Japonica wetland rice, 105 days
+# Water Supply: Irrigated
+# Input Level: Low input level
+# Time: Baseline period 1961-1990
+# Display Unit: kg DW/ha
+#########################################################
+
+"Region","Weighted Average","Minimum","Maximum","Range","Standard deviation"
+"Northern America",1.8968771388188472,0.0011200000000000001,0.0022400000000000002,0.0011200000000000001,1.0568065786069403E-4
+"Europe",1.8357192614899231,0.001304,0.002146,8.419999999999999E-4,9.488931494778242E-5
+"Central America and Caribbean",1.7038158239486112,8.67E-4,0.002078,0.0012109999999999998,1.7099060642424973E-4
+"South America",1.6512294045426905,7.830000000000001E-4,0.0020060000000000004,0.0012230000000000003,2.0301548337183477E-4
+"Oceania",1.835102171162783,9.130000000000001E-4,0.0020080000000000002,0.001095,8.416017490949864E-5
+"Sub-Saharan Africa",1.709809709119341,9.84E-4,0.0021230000000000003,0.0011390000000000003,1.310881256684543E-4
+"Northern Africa and West Asia",1.8241645569033358,0.0013540000000000002,0.002157,8.03E-4,1.2932577166816872E-4
+"Southern and Eastern Asia",1.6859815670735105,8.38E-4,0.002099,0.0012610000000000002,2.228006538523418E-4

@@ -1,0 +1,9 @@
+Field,Description
+v_id,identifier for the associated VDC
+v_name,"name of VDC in Nepal, only populated in NP_ADM4"
+d_id,identifier for the associated district
+d_name,"name of district in Nepal, populated in NP_ADM4.shp and NP_ADM3.shp"
+z_id,identifier for the associated zone
+z_name,"name of zone in Nepal, populated in NP_ADM4.shp, NP_ADM3.shp, and NP_ADM2.shp"
+r_id,identifier for the associated region
+r_name,"name of region in Nepal, populated in all boundary files"
